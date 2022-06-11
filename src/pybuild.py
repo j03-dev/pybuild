@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import os
+from colorama import *
 
 
 current_directory = os.path.abspath(".")
@@ -21,7 +22,7 @@ parser.add_argument(
         "-f",
         help="put file name here",
         nargs="?"
-        )
+)
 args = parser.parse_args()
 
 
@@ -33,20 +34,20 @@ def main():
             name, ext = file 
             command = file_map[ext]
             if ext == "py":
-                print(command.format(file_name))
+                print(Fore.GREEN +  command.format(file_name) + Fore.WHITE)
                 os.system(command.format(file_name))
             elif ext == "rs":
-                print(command)
+                print(Fore.GREEN + command + Fore.WHITE)
                 os.system(command)
             elif ext == "cpp" or ext == "c":
-                print(command.format(file_name, name))
+                print(Fore.GREEN + command.format(file_name, name) + Fore.WHITE)
                 os.system(command.format(file_name, name))
             else:
-                print("this programme can't compile or run this file")
+                print(Fore.RED + "this programme can't compile or run this file" + Fore.WHITE)
         else:
-            print("file not found")
+            print(Fore.RED + "file not found" + Fore.WHITE)
     else:
-        print("verify your parameter")
+        print(Fore.RED + "verify your parameter" + Fore.WHITE)
 
 
 if __name__ == "__main__":
