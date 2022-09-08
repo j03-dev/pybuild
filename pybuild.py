@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import argparse
 import os
-from colorama import *
 
 
 current_directory = os.path.abspath(".")
@@ -26,29 +25,32 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-def main():
+def compile_and_run()->None:
+    """
+    Build or run a c, c++, rust ,and python code with one command
+
+    args: None
+    return: None
+    """
     if args.f is not None:
         file_name = args.f
-        file = file_name.split(".")
+        file: list = file_name.split(".")
         if len(file) == 2 and os.path.exists(os.path.join(current_directory, file_name)):
-            name, ext = file 
+            name, ext = file
             command = file_map[ext]
             if ext == "py":
-                print(Fore.GREEN +  command.format(file_name) + Fore.WHITE)
                 os.system(command.format(file_name))
             elif ext == "rs":
-                print(Fore.GREEN + command + Fore.WHITE)
                 os.system(command)
             elif ext == "cpp" or ext == "c":
-                print(Fore.GREEN + command.format(file_name, name) + Fore.WHITE)
                 os.system(command.format(file_name, name))
             else:
-                print(Fore.RED + "this programme can't compile or run this file" + Fore.WHITE)
+                print("this programme can't compile or run this file extension")
         else:
-            print(Fore.RED + "file not found" + Fore.WHITE)
+            print("file not found")
     else:
-        print(Fore.RED + "verify your parameter" + Fore.WHITE)
+        print("verify your parameter")
 
 
 if __name__ == "__main__":
-    main()
+    compile_and_run()
